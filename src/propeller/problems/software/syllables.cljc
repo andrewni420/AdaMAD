@@ -25,7 +25,7 @@
             [clojure.math.combinatorics :as combo]
             [clojure.math.numeric-tower :as numeric]
             [propeller.tools.maxbandit :as maxbandit]
-            [propeller.tools.gsemr :as gsemr]
+            [propeller.tools.gesmr :as gesmr]
             #?(:cljs [cljs.reader :refer [read-string]]))
   (:import java.lang.Integer
            java.lang.Exception))
@@ -176,7 +176,7 @@
   arguments with defaults that can be overridden from the command line
   or through a passed map."
   [& args]
-  (gsemr/gp
+  (gesmr/gp
    (merge
     {#_:mapper #_mapv
     ;;  :downsample?                 true ; wether to use downsampling
@@ -247,7 +247,7 @@
   arguments with defaults that can be overridden from the command line
   or through a passed map."
   [& args]
-  (gsemr/gp
+  (gesmr/gp
    (merge
     {#_:mapper #_mapv
      :instructions            instructions

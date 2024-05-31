@@ -17,7 +17,7 @@
             [propeller.tools.math :as math]
             [propeller.tools.maxbandit :as maxbandit]
             [propeller.gp :as gp]
-            [propeller.tools.gsemr :as gsemr]
+            [propeller.tools.gesmr :as gesmr]
             [clojure.pprint :as pprint]
             #?(:cljs [cljs.reader :refer [read-string]])))
 

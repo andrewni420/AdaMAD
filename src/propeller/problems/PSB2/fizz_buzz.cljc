@@ -15,7 +15,7 @@ Source: https://arxiv.org/pdf/2106.06086.pdf"
             [propeller.push.state :as state]
             [propeller.tools.metrics :as metrics]
             [propeller.gp :as gp]
-            [propeller.tools.gsemr :as gsemr]
+            [propeller.tools.gesmr :as gesmr]
             [propeller.tools.maxbandit :as maxbandit]
             #?(:cljs [cljs.reader :refer [read-string]])))
 
@@ -93,7 +93,7 @@ Source: https://arxiv.org/pdf/2106.06086.pdf"
   arguments with defaults that can be overridden from the command line
   or through a passed map."
   [& args]
-  (gsemr/gp
+  (gesmr/gp
    (merge
     {#_:mapper #_mapv
      :instructions            instructions

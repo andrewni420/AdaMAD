@@ -195,13 +195,13 @@ The function `new-individual` returns a new individual produced by selection and
         x (if high (min high x) x)]
     x))
 
-(defn meta-mutate-gsemr 
+(defn meta-mutate-gesmr 
   "Meta mutation rate from the group elites paper"
   [rate sigma]
   (* rate (math/pow sigma (- (* 2 (rand)) 1))))
 
 
-(defn mutate-gsemr
+(defn mutate-gesmr
   "UMAD mutation from the group elites paper"
   [individual argmap & {:keys [rate]}]
   (let [rate (or rate (:umad-rate individual))

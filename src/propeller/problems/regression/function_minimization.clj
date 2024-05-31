@@ -13,7 +13,7 @@
             [propeller.tools.distributions :as dist]))
 
 
-;; Test functions for function minimization from GSEMR paper
+;; Test functions for function minimization from gesmr paper
 
 (defn linear
   [input]
@@ -107,7 +107,7 @@
     (merge
      {:genome (mapv + genome (dist/rand-norm {:n (count genome) :mu 0 :sigma std}))
       :bandit-parameters {:e e}}
-     (when ind-std {:std (variation/meta-mutate-gsemr ind-std meta-std)}))))
+     (when ind-std {:std (variation/meta-mutate-gesmr ind-std meta-std)}))))
 
 
 
@@ -140,7 +140,7 @@
                  (min best-error (apply min (map :total-error pop)))))))))
 
 
-(defn step-generation-gsemr
+(defn step-generation-gesmr
   [population rates argmap]
   (let [{mapper :mapper error-function :error-function
          n-rates :n-rates rate-eta :rate-eta rate-sigma :rate-sigma
@@ -161,9 +161,9 @@
                           (apply max (mapv #(reward-fn %2 %1 nil) p i)))
                         parent-rates
                         new-individuals)
-        [elite non-elite] (selection/meta-selection-gsemr rewards rate-eta)
+        [elite non-elite] (selection/meta-selection-gesmr rewards rate-eta)
         rates (into [] (concat [(nth rates elite)]
-                               (map #(variation/meta-mutate-gsemr (nth rates %) rate-sigma)
+                               (map #(variation/meta-mutate-gesmr (nth rates %) rate-sigma)
                                     non-elite)))]
     {:evaluated-pop (into [] (mapcat identity (concat [[(apply min-key :total-error population)]] new-individuals)))
      :rates rates}))
@@ -355,7 +355,7 @@
                           (apply maxbandit/bandit-ensemble
                                  (into [] (mapcat identity
                                                   bandit-parameters)))))
-        rates (when (= :gsemr method) (make-mutation-rates n-rates))]
+        rates (when (= :gesmr method) (make-mutation-rates n-rates))]
     (loop [generation 0
            population (identity (mapper error-function init-pop))
            bandits bandits
@@ -372,7 +372,7 @@
                                argmap)
                       {new-pop :new-pop evaluated-pop :evaluated-pop bandits :bandits rates :rates}
                       (condp = method
-                        :gsemr (step-generation-gsemr population rates argmap)
+                        :gesmr (step-generation-gesmr population rates argmap)
                         :bandit (step-generation-bandit population bandits argmap)
                         :lamr (step-generation population argmap)
                         :samr (step-generation-samr population argmap))]
@@ -459,7 +459,7 @@
                 argmap))))
 
 
-;; gsemr -> rates 
+;; gesmr -> rates 
 ;; lamr -> sigma 
 ;; samr -> rates 
 ;; bandit -> :w or :N
@@ -496,8 +496,8 @@
 
 (defn re-test 
   []
-(let [s "linear-gsemr-std1-dim100-187727"]
-  (pprint/pprint {:match (re-matches #"linear-gsemr-std1-dim100.*" s)})))
+(let [s "linear-gesmr-std1-dim100-187727"]
+  (pprint/pprint {:match (re-matches #"linear-gesmr-std1-dim100.*" s)})))
 
 (defn find-file 
   [dir regex]
@@ -556,7 +556,7 @@
   []
   (let [
         problems ["ackley", "griewank", "rastrigin", "rosenbrock", "sphere", "linear"] #_["linear", "sphere", "rosenbrock", "rastrigin", "griewank", "ackley"]
-        ;; methods ["bandit3" "gsemr" "lamr" "samr"]
+        ;; methods ["bandit3" "gesmr" "lamr" "samr"]
         methods ["bandit3-1"]
         directory "/home/ani24/propeller-master/funcmin-results-ensemble"
         ]
@@ -567,7 +567,7 @@
              filename (find-file directory pattern)
              processor (condp = m
                          "bandit3-1" process-bandit
-                         "gsemr" process-rates
+                         "gesmr" process-rates
                          "lamr" process-sigma
                          "samr" process-rates)]
          (println filename)

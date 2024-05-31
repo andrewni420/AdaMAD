@@ -20,7 +20,7 @@
             [propeller.gp :as gp]
             [propeller.tools.metrics :as metrics]
             [clojure.string :as string]
-            [propeller.tools.gsemr :as gsemr]
+            [propeller.tools.gesmr :as gesmr]
             [propeller.tools.maxbandit2 :as maxbandit2]
             [propeller.tools.maxbandit :as maxbandit]
             #?(:cljs [cljs.reader :refer [read-string]])))
@@ -252,7 +252,7 @@
   arguments with defaults that can be overridden from the command line
   or through a passed map."
   [& args]
-  (gsemr/gp
+  (gesmr/gp
    (merge
     {#_:mapper #_mapv
      :instructions            instructions

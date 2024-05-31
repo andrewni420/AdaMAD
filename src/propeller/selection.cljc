@@ -375,7 +375,7 @@
     (let [success (assess-lexicase-difference [1 0 0] [0 1 1] dist)]
       (pprint/pprint success))))
 
-(defn meta-selection-gsemr
+(defn meta-selection-gesmr
   "Meta selection of mutation rates from the group elites paper.
    Returns [elite-idx, [non-elite-idx]]"
   [best-changes eta]

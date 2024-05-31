@@ -1,4 +1,4 @@
-(ns propeller.tools.gsemr
+(ns propeller.tools.gesmr
   (:require [propeller.tools.math :as math]
             [propeller.gp :as gp]
             [propeller.variation :as variation]
@@ -125,16 +125,16 @@
                               (partition parents-per-rate
                                          (mapper (partial error-function argmap (:training-data argmap))
                                                  (mapcat (fn [[_ p]]
-                                                           (mapv #(variation/mutate-gsemr % argmap) p))
+                                                           (mapv #(variation/mutate-gesmr % argmap) p))
                                                          parent-rates))))
         reward-fn (get reward-transformations reward-transformation)
         rewards (mapper (fn [[_ p] i]
                           (apply max (mapv #(reward-fn %2 %1 dist) p i)))
                         parent-rates
                         new-individuals)
-        [elite non-elite] (selection/meta-selection-gsemr rewards rate-eta)
+        [elite non-elite] (selection/meta-selection-gesmr rewards rate-eta)
         rates (into [] (concat [(nth rates elite)]
-                               (map #(variation/clamp (variation/meta-mutate-gsemr (nth rates %) rate-sigma) :low low-rate :high high-rate)
+                               (map #(variation/clamp (variation/meta-mutate-gesmr (nth rates %) rate-sigma) :low low-rate :high high-rate)
                                     non-elite)))]
     {:evaluated-pop (into [] (mapcat identity new-individuals))
      :rates rates

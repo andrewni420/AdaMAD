@@ -20,7 +20,7 @@
             [clojure.string :as string]
             [clojure.math.combinatorics :as combo]
             [clojure.math.numeric-tower :as numeric]
-            [propeller.tools.gsemr :as gsemr]
+            [propeller.tools.gesmr :as gesmr]
             [propeller.tools.maxbandit :as maxbandit]
             #?(:cljs [cljs.reader :refer [read-string]])
             [propeller.push.instructions :as instructions]))

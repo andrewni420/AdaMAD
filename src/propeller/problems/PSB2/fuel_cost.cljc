@@ -17,7 +17,7 @@ Source: https://arxiv.org/pdf/2106.06086.pdf"
             [propeller.tools.math :as math]
             [propeller.gp :as gp]
             [propeller.tools.maxbandit :as maxbandit]
-            [propeller.tools.gsemr :as gsemr]
+            [propeller.tools.gesmr :as gesmr]
             [clojure.pprint :as pprint]
             #?(:cljs [cljs.reader :refer [read-string]])))
 
@@ -95,7 +95,7 @@ Source: https://arxiv.org/pdf/2106.06086.pdf"
   arguments with defaults that can be overridden from the command line
   or through a passed map."
   [& args]
-  (gsemr/gp
+  (gesmr/gp
    (merge
     {;;:mapper mapv
     ;;  :downsample?                 true ; wether to use downsampling
@@ -201,7 +201,7 @@ Source: https://arxiv.org/pdf/2106.06086.pdf"
   arguments with defaults that can be overridden from the command line
   or through a passed map."
     [& args]
-    (gsemr/gp
+    (gesmr/gp
      (merge
       {#_:mapper #_mapv
        :instructions            instructions
